@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Restaurant } from '../models/restaurant';
 import { RestaurantDataService } from '../services/restaurant-data.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-restograde-restaurants',
@@ -9,6 +10,7 @@ import { RestaurantDataService } from '../services/restaurant-data.service';
 })
 export class RestogradeRestaurantsComponent implements OnInit {
 
+  images : string;
   query : string = "";
   restaurants : Restaurant[];
   displayedRestaurants : Restaurant[];
@@ -16,6 +18,8 @@ export class RestogradeRestaurantsComponent implements OnInit {
   constructor(private restaurantData: RestaurantDataService) { }
 
   ngOnInit() {
+    this.images = environment.endpoints.images;
+
     this.restaurants = [];
     this.displayedRestaurants = [];
 

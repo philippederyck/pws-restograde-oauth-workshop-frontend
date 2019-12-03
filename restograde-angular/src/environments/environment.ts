@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
 
+<<<<<<< HEAD
   endpoints: {
     api: "http://localhost:8080/v1/"
   },
@@ -14,6 +15,11 @@ export const environment = {
     scope: "openid profile email reviews.read reviews.write",
     audience: "https://localhost:8080" //TODO REPLACE WITH REAL VALUE
     // audience: "https://api.oauth-workshop.restograde.com"
+=======
+  endpoints: { //TODO CHANGE
+    api: "http://localhost:8080/v0/",
+    images: "http://localhost:8080/",
+>>>>>>> master
   }
 };
 

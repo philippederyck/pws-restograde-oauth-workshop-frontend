@@ -43,18 +43,12 @@ export class ReviewDataService {
   }
 
   private formatReviewData(data) {
-    let result = new FormData();
-
-    let review = data.review;
-    let image = data.image;
-
-    result.append("restaurant", review.restaurantId);
-    result.append("rating", review.rating);
-    if(review.title) result.append("title", review.title);
-    if(review.content) result.append("content", review.content);
-    if(image) result.append("image", image.nativeFile, image.name);
-
-    return result;
+    return {
+      restaurant: data.review.restaurantId,
+      rating: data.review.rating,
+      title: data.review.title,
+      content: data.review.content
+    };
   }
 
   private handleError<T> (operation = 'operation', result?: T) {

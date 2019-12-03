@@ -1,8 +1,13 @@
 import { Injectable, AfterViewChecked } from '@angular/core';
+<<<<<<< HEAD
 import createAuth0Client from '@auth0/auth0-spa-js';
 import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import { tap, catchError, concatMap, shareReplay, flatMap } from 'rxjs/operators';
 import { from, of, Observable, BehaviorSubject, combineLatest, throwError } from 'rxjs';
+=======
+import { tap } from 'rxjs/operators';
+import { Observable, BehaviorSubject, of } from 'rxjs';
+>>>>>>> master
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -132,6 +137,10 @@ export class AuthenticationService {
         this.router.navigate([targetRoute]);
       });
     }
+  }
+
+  getUsername() {
+    return of(this.currentUser.name);
   }
 
   logout() {
