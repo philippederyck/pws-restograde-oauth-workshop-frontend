@@ -5,9 +5,9 @@
 export const environment = {
   production: false,
 
-  endpoints: {//TODO CHANGE
+  endpoints: {
     api: "http://localhost:3000/",
-    images: "http://localhost:8080/"
+    images: "https://api.oauth-workshop.restograde.com/"
   }
 };
 
