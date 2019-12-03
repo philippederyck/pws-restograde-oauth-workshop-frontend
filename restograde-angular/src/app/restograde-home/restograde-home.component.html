@@ -22,7 +22,7 @@
                   <i class="fa fa-pencil-alt mr-2"></i> Write Review
               </button>
             </a>
-            <a *ngIf="!(authService.isAuthenticated() | async)" routerLink="/login">
+            <a *ngIf="!(authService.isAuthenticated() | async)" (click)="authService.login()">
               <button mdbBtn type="button" color="white" outline="true" mdbWavesEffect>
                   <i class="fa fa-user mr-2"></i> Login to get started
               </button>

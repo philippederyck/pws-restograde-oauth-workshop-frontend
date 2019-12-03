@@ -7,6 +7,10 @@ export const environment = {
 
   endpoints: {
     api: "http://localhost:8080/v0/"
+  },
+  oauth: {
+    provider: "pws-demo.eu.auth0.com",
+    client_id: "Bh91lG2QLb1jxEPs7N57ElVuHixJGaCc"
   }
 };
 

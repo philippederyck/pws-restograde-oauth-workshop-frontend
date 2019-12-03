@@ -16,9 +16,6 @@ import { RestaurantDataService } from './services/restaurant-data.service';
 import { RestaurantReviewsResolve } from './resolvers/restaurant-reviews-resolve';
 import { RestogradeRestaurantsReviewsComponent } from './restograde-restaurants-reviews/restograde-restaurants-reviews.component';
 import { ReviewDataService } from './services/review-data.service';
-import { RestogradeLoginComponent } from './restograde-login/restograde-login.component';
-import { RestogradeLogoutComponent } from './restograde-logout/restograde-logout.component';
-import { RestogradeLoginFormComponent } from './restograde-login-form/restograde-login-form.component';
 import { AuthenticationService } from './services/authentication.service';
 import { RestogradeUsersReviewsComponent } from './restograde-users-reviews/restograde-users-reviews.component';
 import { UserReviewsResolve } from './resolvers/user-reviews-resolve';
@@ -39,9 +36,6 @@ import { AuthorizationHeader } from './interceptors/authorization-header';
     RestogradeHomeComponent,
     RestogradeRestaurantsComponent,
     RestogradeRestaurantsReviewsComponent,
-    RestogradeLoginComponent,
-    RestogradeLogoutComponent,
-    RestogradeLoginFormComponent,
     RestogradeUsersReviewsComponent,
     RestogradeReviewsListComponent,
     RestogradeReviewsFormComponent,

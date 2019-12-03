@@ -5,8 +5,6 @@ import { RestogradeHomeComponent } from './restograde-home/restograde-home.compo
 import { RestogradeRestaurantsComponent } from './restograde-restaurants/restograde-restaurants.component';
 import { RestogradeRestaurantsReviewsComponent } from './restograde-restaurants-reviews/restograde-restaurants-reviews.component';
 import { RestaurantReviewsResolve } from './resolvers/restaurant-reviews-resolve';
-import { RestogradeLogoutComponent } from './restograde-logout/restograde-logout.component';
-import { RestogradeLoginComponent } from './restograde-login/restograde-login.component';
 import { UserReviewsResolve } from './resolvers/user-reviews-resolve';
 import { RestogradeUsersReviewsComponent } from './restograde-users-reviews/restograde-users-reviews.component';
 import { AuthenticationGuardService } from './services/authentication-guard.service';
@@ -48,12 +46,6 @@ const routes: Routes = [
         review: ReviewResolve,
         restaurants: RestaurantsResolve
       },
-      canActivate: [AuthenticationGuardService]
-    },
-    { path: 'login', component: RestogradeLoginComponent },
-    { 
-      path: 'logout', 
-      component: RestogradeLogoutComponent,
       canActivate: [AuthenticationGuardService]
     },
     { path: '**', redirectTo: '/home' },
