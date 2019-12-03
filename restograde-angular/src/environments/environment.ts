@@ -5,16 +5,15 @@
 export const environment = {
   production: false,
 
-  endpoints: { //TODO CHANGE
-    api: "http://localhost:8080/v1/",
-    images: "http://localhost:8080/"
+  endpoints: {
+    api: "https://api.oauth-workshop.restograde.com/v1/",
+    images: "https://api.oauth-workshop.restograde.com/"
   },
   oauth: {
     provider: "pws-demo.eu.auth0.com",
     client_id: "Bh91lG2QLb1jxEPs7N57ElVuHixJGaCc",
     scope: "openid profile email reviews.read reviews.write",
-    audience: "https://localhost:8080" //TODO REPLACE WITH REAL VALUE
-    // audience: "https://api.oauth-workshop.restograde.com"
+    audience: "https://api.oauth-workshop.restograde.com"
   }
 };
 
