@@ -15,13 +15,18 @@ import { ReviewResolve } from './resolvers/review-resolve';
 
 const routes: Routes = [
     { path: 'home', component: RestogradeHomeComponent },
-    { path: 'restaurants', component: RestogradeRestaurantsComponent },
+    { 
+      path: 'restaurants', 
+      component: RestogradeRestaurantsComponent,
+      canActivate: [AuthenticationGuardService]
+    },
     { 
       path: 'restaurants/:id/reviews', 
       component: RestogradeRestaurantsReviewsComponent, 
       resolve: {
         reviews: RestaurantReviewsResolve
-      }
+      },
+      canActivate: [AuthenticationGuardService]
     },
     { 
       path: 'myreviews', 

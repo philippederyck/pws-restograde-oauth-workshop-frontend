@@ -1,11 +1,12 @@
 <div class="row justify-content-center mt-5">
+  <div *ngIf="reviews.length == 0" class="col-12">
+    <p class="text-center font-italic">No reviews found.</p>
+  </div>
   <div *ngFor="let review of reviews" class="card w-75 mt-2 mb-2">
     <div class="card-body">
       <h3 class="card-title">{{review.title}}
         <span class="badge badge-pill float-right review-rating review-rating-{{review.rating}}">{{review.rating}}/10</span>
       </h3>
-      <!-- TODO LATER RE-INCLUDE RESTO NAME -->
-      <!-- <h6 class="card-title font-italic text-gray">{{review.restaurant.name}} ({{review.restaurant.city}})</h6> -->
       <p class="card-text pt-3">{{review.content}}</p>
 
       <div class="row">

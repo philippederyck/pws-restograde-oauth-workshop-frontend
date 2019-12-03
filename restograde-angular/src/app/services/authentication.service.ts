@@ -1,6 +1,6 @@
 import { Injectable, AfterViewChecked } from '@angular/core';
 import { tap } from 'rxjs/operators';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, of } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 
@@ -36,6 +36,10 @@ export class AuthenticationService {
   
   isAuthenticated() : Observable<boolean> {
     return this.loggedIn.asObservable();
+  }
+
+  getUsername() {
+    return of(this.currentUser.name);
   }
 
   getLoginUrl() {
