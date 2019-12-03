@@ -8,7 +8,7 @@
 
   <links>
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
+        <li *ngIf="authService.isAuthenticated() | async" class="nav-item">
           <a class="nav-link" routerLink="/restaurants">
             <i class="fa fa-search"></i>
             <span class="ml-2">Search</span>
