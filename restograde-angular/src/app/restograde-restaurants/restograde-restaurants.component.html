@@ -30,7 +30,7 @@
     <div *ngFor="let restaurant of displayedRestaurants" class="col-lg-4 col-md-12 card-group">
       <div class="card card-cascade wider mt-2 mb-2">
         <div class="view view-cascade overlay">
-          <img src="restograde/images/{{restaurant.image}}" class="card-img-top" alt="wider">
+          <img src="{{images}}/{{restaurant.image}}" class="card-img-top" alt="wider">
           <a [routerLink]="['/restaurants', restaurant.id, 'reviews']">
             <div class="mask rgba-white-slight"></div>
           </a>

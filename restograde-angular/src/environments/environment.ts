@@ -5,8 +5,9 @@
 export const environment = {
   production: false,
 
-  endpoints: {
-    api: "http://localhost:8080/v0/"
+  endpoints: { //TODO CHANGE
+    api: "http://localhost:8080/v0/",
+    images: "http://localhost:8080/",
   }
 };
 
