@@ -6,7 +6,7 @@ export const environment = {
   production: false,
 
   endpoints: {
-    api: "http://localhost:8080/v0/"
+    api: "http://localhost:3000/"
   }
 };
 

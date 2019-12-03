@@ -7,48 +7,43 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class AuthenticationService {
 
-  changed = false;
   currentUser = null;
   loggedIn: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(private http: HttpClient) {
-    // Reload state from localStorage
-    let token = localStorage.getItem("token");
-    if(token != null) {
-      this.loggedIn.next(true);
-      this.currentUser = { name: localStorage.getItem("name") }
-    }
+    // Check current state
+    this.verifyLogin();
   }
 
-  login(user: string, pass: string) : Observable<string> {
-    console.log("Logging in: " + user);
+  private verifyLogin() {
+    console.log("Checking for existing session ...");
 
-    return this.http.post<string>(environment.endpoints.api + "login", { email: user, password: pass })
-      .pipe(
-        tap(data => { 
-          console.log("Authentication successful, storing token in localStorage");
-          
-          localStorage.setItem("token", data['token']);
-          localStorage.setItem("name", data['name']);
-
+    return this.http.get<Object>(environment.endpoints.api + "oidc/verifyLogin", {withCredentials: true})
+      .subscribe(data => { 
+        if(data['status'] == 'authenticated') {
+          console.log(`Resuming existing session (${data['username']})`)
           this.loggedIn.next(true);
           this.currentUser = {
-            name: data['name']
+            name: data['username']
           }
-        })
-      );
+        }
+        else {
+          console.log(`No existing session found`)
+          this.loggedIn.next(false);
+        }
+      });
   }
   
   isAuthenticated() : Observable<boolean> {
     return this.loggedIn.asObservable();
   }
 
-  logout() {
-    console.log("Logging out ...");
-    localStorage.removeItem("token");
-    localStorage.removeItem("name");
-    this.currentUser == null;
-    this.loggedIn.next(false);
+  getLoginUrl() {
+    return `${environment.endpoints.api}oidc/login`;
+  }
+
+  getLogoutUrl() {
+    return `${environment.endpoints.api}oidc/logout`;
   }
 
 }

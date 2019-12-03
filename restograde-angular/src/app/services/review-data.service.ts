@@ -16,45 +16,39 @@ export class ReviewDataService {
 
   getReview(id : number) : Observable<Review> {
     console.log(`Fecthing a review (id: ${id} )`);
-    return this.http.get<Review>(environment.endpoints.api + "reviews/" + id)
+    return this.http.get<Review>(environment.endpoints.api + "bff/reviews/" + id, {withCredentials: true})
         .pipe(catchError(this.handleError<any>("getReview")));
   }
 
   getReviewsByRestaurantId(id : number) : Observable<Review[]> {
     console.log(`Fecthing a list of reviews for a restaurant (id: ${id} )`);
-    return this.http.get<Review[]>(environment.endpoints.api + "reviews?restaurant=" + id)
+    return this.http.get<Review[]>(environment.endpoints.api + "bff/reviews?restaurant=" + id, {withCredentials: true})
         .pipe(catchError(this.handleError<any>("listReviewsByRestaurantId")));
   }
 
   getReviewsForUser() : Observable<Review[]> {
     console.log(`Fecthing a list of reviews for the current user`);
-    return this.http.get<Review[]>(environment.endpoints.api + "reviews")
+    return this.http.get<Review[]>(environment.endpoints.api + "bff/reviews", {withCredentials: true})
         .pipe(catchError(this.handleError<any>("listReviewsByAuthorId")));
   }
 
   createReview(data) {
     let uploadData = this.formatReviewData(data);
-    return this.http.post<Review>(environment.endpoints.api + "reviews/", uploadData);
+    return this.http.post<Review>(environment.endpoints.api + "bff/reviews/", uploadData, {withCredentials: true});
   }
 
   updateReview(data) {
     let uploadData = this.formatReviewData(data);
-    return this.http.patch<Review>(environment.endpoints.api + "reviews/" + data.review.id, uploadData);
+    return this.http.patch<Review>(environment.endpoints.api + "bff/reviews/" + data.review.id, uploadData, {withCredentials: true});
   }
 
   private formatReviewData(data) {
-    let result = new FormData();
-
-    let review = data.review;
-    let image = data.image;
-
-    result.append("restaurant", review.restaurantId);
-    result.append("rating", review.rating);
-    if(review.title) result.append("title", review.title);
-    if(review.content) result.append("content", review.content);
-    if(image) result.append("image", image.nativeFile, image.name);
-
-    return result;
+    return {
+      restaurant: data.review.restaurantId,
+      rating: data.review.rating,
+      title: data.review.title,
+      content: data.review.content
+    };
   }
 
   private handleError<T> (operation = 'operation', result?: T) {

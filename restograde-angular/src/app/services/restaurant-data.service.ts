@@ -15,7 +15,7 @@ export class RestaurantDataService {
 
   listRestaurants() : Observable<Restaurant[]> {
     console.log("Fecthing a list of restaurants");
-    return this.http.get<Restaurant[]>(environment.endpoints.api + "restaurants")
+    return this.http.get<Restaurant[]>(environment.endpoints.api + "bff/restaurants", {withCredentials: true})
        .pipe(catchError(this.handleError<any>("listRestaurants")));
   }
 
