@@ -15,10 +15,10 @@ export class AuthorizationRequired implements HttpInterceptor {
             tap((event: HttpEvent<any>) => {}, (err: any) => {
                 if (err instanceof HttpErrorResponse) {
                     if (err.status === 401) {
-                        this.injector.get(AuthenticationService).logout();
+                        // this.injector.get(AuthenticationService).logout();
 
-                        // Redirect to login route
-                        this.router.navigate(["/login"]);
+                        // // Redirect to login route
+                        // this.router.navigate(["/login"]);
                     }
                 }
             })

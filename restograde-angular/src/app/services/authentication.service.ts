@@ -17,7 +17,9 @@ export class AuthenticationService {
     createAuth0Client({
       domain: environment.oauth.provider,
       client_id: environment.oauth.client_id,
-      redirect_uri: `${window.location.origin}`
+      redirect_uri: `${window.location.origin}`,
+      audience: environment.oauth.audience,
+      scope: environment.oauth.scope
     })
   ) as Observable<Auth0Client>).pipe(
     shareReplay(1), // Every subscription receives the same shared value
@@ -75,6 +77,21 @@ export class AuthenticationService {
     );
   }
 
+  getTokenSilently$(options?): Observable<string> {
+    // if(options == null) options = {};
+    // if(options['scope'] == null) {
+    //   options['scope'] = environment.oauth.scope;
+    // } 
+    // else {
+    //   options['scope'] = `${options['scope']} ${environment.oauth.scope}`;
+    // }
+    // console.log(`SCOPE: '${options.scope}'`); //TODO REMOVE
+
+    return this.auth0Client$.pipe(
+      concatMap((client: Auth0Client) => from(client.getTokenSilently(options)))
+    );
+  }
+
   login(redirectPath: string = '/') {
     // A desired redirect path can be passed to login method
     // (e.g., from a route guard)
@@ -83,6 +100,7 @@ export class AuthenticationService {
       // Call method to log in
       client.loginWithRedirect({
         redirect_uri: `${window.location.origin}`,
+        scope: environment.oauth.scope,
         appState: { target: redirectPath }
       });
     });

@@ -1,50 +1,31 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs/operators';
+import { tap, mergeMap, catchError } from 'rxjs/operators';
+import { AuthenticationService } from '../services/authentication.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class AuthorizationHeader implements HttpInterceptor {
 
-    constructor() {};
+    constructor(private authService : AuthenticationService) {};
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        let token = this.getToken();
-        if(token) {
-            console.log("Attaching authentication token to request (" + request.url + "): " + token);
-            request = request.clone({
-                setHeaders: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
+        if(request.url.startsWith(environment.endpoints.api)) {
+            return this.authService.getTokenSilently$().pipe(
+                mergeMap(token => {
+                    console.log("Attaching authentication token to request (" + request.url + "): " + token);
+                    const tokenReq = request.clone({
+                        setHeaders: { Authorization: `Bearer ${token}` }
+                    });
+                    return next.handle(tokenReq);
+                }),
+                catchError(err => throwError(err))
+            );        
         }
-        
-        return next.handle(request).pipe(
-            tap((event: HttpEvent<any>) => {
-            if (event instanceof HttpResponse) {
-                if(event.headers.has("Authorization")) {
-                    console.log("Authorization header found in response.")
-                    let header = event.headers.get("Authorization");
-                    if(header.startsWith("Bearer ")) {
-                        let token = header.substring(7);
-                        console.log(`Storing authentication token: ${token}`);
-                        this.storeToken(token);
-                    }
-                    else {
-                        console.log("Authorization header is not what we expected. Not using its value.")
-                    }
-                }
-                }
-            }, (err: any) => {})
-        );
-    }
-
-    storeToken(token: string) {
-        localStorage.setItem("token", token);
-    }
-
-    getToken() : string {
-        return localStorage.getItem("token");
+        else {
+            console.log("Not attaching token to request (" + request.url + ")");
+        }
     }
   }
