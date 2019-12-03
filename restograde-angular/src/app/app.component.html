@@ -31,7 +31,7 @@
         <li class="nav-item">
           <a *ngIf="authService.isAuthenticated() | async" class="nav-link ml-2" routerLink="/logout">
             <i class="fa fa-user"></i> 
-            <span class="ml-2">Logout {{authService.currentUser.name}}</span>
+            <span class="ml-2">Logout {{authService.getUsername() | async}}</span>
           </a>
           <a *ngIf="!(authService.isAuthenticated() | async)" class="nav-link ml-2" routerLink="/login">
             <i class="fa fa-user"></i>
