@@ -1,0 +1,37 @@
+<div class="row mt-5">
+  <div class="col-lg-6 offset-lg-3 col-md-10 offset-md-1 col-12 text-center">
+    <form (ngSubmit)="submit()" #reviewForm="ngForm">
+      <mdb-select [options]="restaurantsSelect" [(ngModel)]="review.restaurantId" name="restaurantId" placeholder="Choose a restaurant"></mdb-select>
+
+      <h5 class="col-12 text-left mt-4">Your overall score</h5>
+      <div class="row">
+        <div class="col-12 d-flex justify-content-center my-4">
+          <span class="font-weight-bold text-primary mr-2">0</span>
+          <mdb-range-input default="true" id="range" min="0" max="10" value="{{review.rating}}" (rangeValueChange)="onRangeValueChange($event)"></mdb-range-input>
+          <span class="font-weight-bold text-primary ml-2">10</span>
+        </div>
+
+      </div>
+
+      <h5 class="col-12 text-left mt-4">Leave a more detailed review, if desired</h5>
+      <div class="md-form mb-3">
+        <input mdbInput  [validateSuccess]="false" [validateError]="false" [(ngModel)]="review.title" #title="ngModel" type="text" name="title" class="form-control">
+        <label for="title">Title</label>
+      </div>
+
+      <div class="md-form">
+        <textarea mdbInput  [validateSuccess]="false" [validateError]="false" [(ngModel)]="review.content" id="content" type="text" name="content" class="md-textarea form-control"
+          rows="2">{{review.content}}</textarea>
+        <label for="content">How was your experience?</label>
+      </div>
+
+      <button type="submit" mdbBtn class="btn-pws-primary">Submit review</button>
+    </form>
+  </div>
+</div>
+
+<div *ngIf="error.length > 0" id="errorrow" class="row justify-content-center mt-4">
+  <div id="errorbox" class="alert alert-danger">
+    <p class="m-0">{{error}}</p>
+  </div>
+</div>

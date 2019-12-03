@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="row justify-content-center mt-4">
+    <h2 class="col-12 text-center">Which restaurant are you looking for?</h2>
+  </div>
+
+  <div class="form-row mt-3 align-items-center justify-content-center">
+    <div class="col-sm-8 col-md-6 col-lg-4">
+      <div class="md-form mb-3">
+        <input mdbInput #search (keyup)="searchRestaurants(search.value)" type="text" class="form-control" id="search" name="search" size="50">
+        <label for="search">Search by restaurant name</label>
+      </div>
+    </div>
+  </div>
+
+  <hr class="p-2">
+
+
+  <div *ngIf="displayedRestaurants.length == 0" class="row justify-content-center mt-4">
+    <h3 class="col-12 text-center">Your search for
+      <span class="text-accent">{{query}}</span> yielded no results.</h3>
+  </div>
+
+  <div *ngIf="displayedRestaurants.length > 0" class="row justify-content-center mt-4">
+    <h3 *ngIf="query.length > 0" class="col-12 text-center">Your search for
+      <span class="text-accent">{{query}}</span> yielded {{displayedRestaurants.length}} results</h3>
+    <h3 *ngIf="query.length == 0" class="col-12 text-center">All restaurants</h3>
+  </div>
+
+  <div class="row mt-5">
+    <div *ngFor="let restaurant of displayedRestaurants" class="col-lg-4 col-md-12 card-group">
+      <div class="card card-cascade wider mt-2 mb-2">
+        <div class="view view-cascade overlay">
+          <img src="restograde/images/{{restaurant.image}}" class="card-img-top" alt="wider">
+          <a [routerLink]="['/restaurants', restaurant.id, 'reviews']">
+            <div class="mask rgba-white-slight"></div>
+          </a>
+        </div>
+
+        <div class="card-body card-body-cascade text-center">
+          <h5 class="card-title">
+            <strong>{{restaurant.name}}</strong>
+          </h5>
+          <h6 class="text-gray">
+            <strong>{{restaurant.city}}</strong>
+          </h6>
+
+          <p class="card-text">{{restaurant.description}}</p>
+
+          <button [routerLink]="['/restaurants', restaurant.id, 'reviews']" mdbBtn class="btn-pws-primary">Reviews</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

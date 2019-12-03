@@ -1,0 +1,43 @@
+<div class="container-fluid">
+  <div class="row m-5">
+    <div class="col-12">
+      <mdb-card class="card-image homepage-image mb-3">
+        <div class="text-white text-center rgba-stylish-strong px-4">
+          <div class="py-5">
+            <h1 class="card-title pt-3 mb-5 font-bold">Never Again!</h1>
+            <h4 class="px-5 pb-4">Don't you hate it? Going out with friends for a quick and dirty burger, and being served a delicious gourmet
+              burger instead.</h4>
+            <h4 class="px-5 pb-4">No more surprises! Check
+              <span class="text-accent font-bold">Restograde</span> to get real reviews on restaurants around the world.</h4>
+
+            <hr class="my-4 rgba-white-light">
+
+            <a *ngIf="authService.isAuthenticated() | async" routerLink="/restaurants">
+              <button mdbBtn type="button" color="white" outline="true" mdbWavesEffect>
+                  <i class="fa fa-search mr-2"></i> Search Restaurant
+              </button>
+            </a>
+            <a *ngIf="authService.isAuthenticated() | async" routerLink="/writereview">
+              <button mdbBtn type="button" color="white" outline="true" mdbWavesEffect>
+                  <i class="fa fa-pencil-alt mr-2"></i> Write Review
+              </button>
+            </a>
+            <a *ngIf="!(authService.isAuthenticated() | async)" routerLink="/login">
+              <button mdbBtn type="button" color="white" outline="true" mdbWavesEffect>
+                  <i class="fa fa-user mr-2"></i> Login to get started
+              </button>
+            </a>
+          </div>
+        </div>
+      </mdb-card>
+    </div>
+  </div>
+  <div class="row m-5">
+      <div class="col-sm-8 offset-sm-2 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+        <p class="font-italic text-gray text-center">
+          Restograde is the perfect place to get real-world reviews for restaurants all over the world. Find out everything about a
+          restaurant before heading there. In turn, write your own reviews to help out others.
+        </p>
+      </div>
+    </div>
+</div>
