@@ -78,15 +78,6 @@ export class AuthenticationService {
   }
 
   getTokenSilently$(options?): Observable<string> {
-    // if(options == null) options = {};
-    // if(options['scope'] == null) {
-    //   options['scope'] = environment.oauth.scope;
-    // } 
-    // else {
-    //   options['scope'] = `${options['scope']} ${environment.oauth.scope}`;
-    // }
-    // console.log(`SCOPE: '${options.scope}'`); //TODO REMOVE
-
     return this.auth0Client$.pipe(
       concatMap((client: Auth0Client) => from(client.getTokenSilently(options)))
     );
